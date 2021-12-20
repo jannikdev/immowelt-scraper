@@ -1,6 +1,8 @@
 # immowelt-scraper
 Web scrapper for the [Immowelt apartment listing](https://www.immowelt.de/suche/wohnungen/mieten).
 
+Forked from [federbertolini's immowelt-scraper](https://github.com/fedebertolini/immowelt-scraper)
+
 ## Installation
 ```
 npm install immowelt-scraper --save
