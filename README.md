@@ -1,7 +1,9 @@
 # immowelt-scraper
 Web scrapper for the [Immowelt apartment listing](https://www.immowelt.de/suche/wohnungen/mieten).
 
-Forked from [federbertolini's immowelt-scraper](https://github.com/fedebertolini/immowelt-scraper)
+Forked from [federbertolini's immowelt-scraper](https://github.com/fedebertolini/immowelt-scraper).
+
+The goal is to scrape publicly available real estate data for statistical analysis in a research project.
 
 ## Installation
 ```
