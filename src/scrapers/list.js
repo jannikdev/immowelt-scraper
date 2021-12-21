@@ -8,9 +8,9 @@ const scrapeHouse = ($houseNode) => {
     return house;
 };
 
-const scrapePagination = $ => ({
-    page: parseInt($('#pnlPaging .ci_color').text(), 10),
-    totalPages: parseInt($('#pnlPaging .btn_01').last().text(), 10),
+const scrapePagination = pagebody => ({
+    page: parseInt(pagebody.substr(pagebody.indexOf('selectedPage')+12,10).substr(0,pagebody.substr(pagebody.indexOf('pagesCount')).indexOf(',')), 10),
+    totalPages: parseInt(pagebody.substr(pagebody.indexOf('pagesCount')+12,10).substr(0,pagebody.substr(pagebody.indexOf('pagesCount')).indexOf(',')), 10),
 });
 
 exports.scrape = (page) => {
