@@ -20,7 +20,7 @@ exports.scrape = (page) => {
     });
 
     const houses = $('.EstateItem-1c115').map((i, apt) => scrapeHouse($(apt))).get();
-    const pagination = scrapePagination($);
+    const pagination = scrapePagination(page);
 
     return {
         items: houses,
