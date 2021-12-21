@@ -59,4 +59,4 @@ const scrapeState = (state, page = 1) => new Promise((resolve, reject) => {
 });
 
 exports.states = Object.keys(statePaths);
-exports.scrapeCity = scrapCity;
+exports.scrapeState = scrapeState;
