@@ -13,7 +13,7 @@ const getListUrl = (state, page) => {
     return `${host}/liste/${statePath}/wohnungen/mieten?cp=${page}`;
 };
 
-const scrapApartment = url => new Promise((resolve, reject) => {
+const scrapeHouse = url => new Promise((resolve, reject) => {
     request(url, (error, response, body) => {
         if (error) {
             reject(error);
@@ -23,10 +23,10 @@ const scrapApartment = url => new Promise((resolve, reject) => {
             reject(`Invalid response: ${response.statusCode}`);
             return;
         }
-        const apartment = houseScraper.scrape(body);
-        apartment.url = url;
+        const house = houseScraper.scrape(body);
+        house.url = url;
 
-        resolve(apartment);
+        resolve(house);
     });
 });
 
@@ -48,15 +48,15 @@ const scrapeState = (state, page = 1) => new Promise((resolve, reject) => {
             reject(`Invalid response: ${response.statusCode}`);
             return;
         }
-        const apartments = listScraper.scrap(body);
-        const apartmentPromises = apartments.items.map(apt => scrapApartment(host + apt.url));
+        const houses = listScraper.scrap(body);
+        const housePromises = houses.items.map(apt => scrapHouse(host + apt.url));
 
-        resolve(Promise.all(apartmentPromises).then(items => ({
+        resolve(Promise.all(housePromises).then(items => ({
             items,
-            pagination: apartments.pagination,
+            pagination: houses.pagination,
         })));
     });
 });
 
-exports.cities = Object.keys(statePaths);
-exports.scrapCity = scrapCity;
+exports.states = Object.keys(statePaths);
+exports.scrapeCity = scrapCity;
