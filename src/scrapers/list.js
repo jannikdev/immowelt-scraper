@@ -19,7 +19,7 @@ exports.scrape = (page) => {
         normalizeWhitespace: true,
     });
 
-    const houses = $('.js-object').map((i, apt) => scrapeHouse($(apt))).get();
+    const houses = $('.EstateItem-1c115').map((i, apt) => scrapeHouse($(apt))).get();
     const pagination = scrapePagination($);
 
     return {
