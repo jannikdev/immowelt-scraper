@@ -43,7 +43,7 @@ const parseImages = ($) => {
     return metas.map((i, meta) => meta.attribs.content).get();
 };
 
-exports.scrape = (page) => {
+exports.scrape = (page, url) => {
     const $ = cheerio.load(page, {
         decodeEntities: false,
         normalizeWhitespace: true,
@@ -51,7 +51,7 @@ exports.scrape = (page) => {
 
     let house = {};
 
-    house.id = $('#OnlineId').val();
+    house.id = url.substr(url.indexOf('/expose/'+8));
     house.rentBase = parsePrice($('.hardfacts .hardfact').eq(0).text());
     house.rentTotal = parseRentTotal($);
     house.area = parseArea($('.hardfacts .hardfact').eq(1).text().replace(',', '.'));
