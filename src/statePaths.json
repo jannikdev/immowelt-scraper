@@ -1,0 +1,18 @@
+{
+    "Bayern": "bl-bayern",
+    "Nordrhein-Westfalen": "bl-nordrhein-westfalen",
+    "Sachsen": "bl-sachsen",
+    "Thueringen": "bl-thueringen",
+    "Sachsen-Anhalt": "bl-sachsen-anhalt",
+    "Niedersachen": "bl-niedersachsen",
+    "Bremen": "bremen",
+    "Berlin": "berlin",
+    "Brandenburg": "bl-brandenburg",
+    "Mecklenburg-Vorpommern": "bl-mecklenburg-vorpommern",
+    "Saarland": "bl-saarland",
+    "Schleswig-Holstein": "bl-schleswig-holstein",
+    "Baden-Wuerttemberg": "bl-baden-wuerttemberg",
+    "Hamburg": "hamburg",
+    "Rheinland-Pfalz": "bl-rheinland-pfalz",
+    "Hessen": "hessen"
+}

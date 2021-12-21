@@ -1,5 +1,5 @@
 const fs = require('fs');
-const scraper = require('../../src/scrapers/apartment');
+const scraper = require('../../src/scrapers/house');
 
 it('scraps the apartment1.html', () => {
     const file = fs.readFileSync(`${process.cwd()}/__tests__/scrapers/pages/apartment1.html`);

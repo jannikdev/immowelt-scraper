@@ -1,29 +1,29 @@
 const cheerio = require('cheerio');
 
-const scrapApartment = ($apartmentNode) => {
-    const apartment = {};
+const scrapeHouse = ($houseNode) => {
+    const house = {};
 
-    apartment.url = $apartmentNode.find('.js-listitem > a').attr('href');
+    house.url = $houseNode.find('.js-listitem > a').attr('href');
 
-    return apartment;
+    return house;
 };
 
-const scrapPagination = $ => ({
+const scrapePagination = $ => ({
     page: parseInt($('#pnlPaging .ci_color').text(), 10),
     totalPages: parseInt($('#pnlPaging .btn_01').last().text(), 10),
 });
 
-exports.scrap = (page) => {
+exports.scrape = (page) => {
     const $ = cheerio.load(page, {
         decodeEntities: false,
         normalizeWhitespace: true,
     });
 
-    const apartments = $('.js-object').map((i, apt) => scrapApartment($(apt))).get();
-    const pagination = scrapPagination($);
+    const houses = $('.js-object').map((i, apt) => scrapeHouse($(apt))).get();
+    const pagination = scrapePagination($);
 
     return {
-        items: apartments,
+        items: houses,
         pagination,
     };
 };

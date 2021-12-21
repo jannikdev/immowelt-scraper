@@ -43,24 +43,24 @@ const parseImages = ($) => {
     return metas.map((i, meta) => meta.attribs.content).get();
 };
 
-exports.scrap = (page) => {
+exports.scrape = (page) => {
     const $ = cheerio.load(page, {
         decodeEntities: false,
         normalizeWhitespace: true,
     });
 
-    let apartment = {};
+    let house = {};
 
-    apartment.id = $('#OnlineId').val();
-    apartment.rentBase = parsePrice($('.hardfacts .hardfact').eq(0).text());
-    apartment.rentTotal = parseRentTotal($);
-    apartment.area = parseArea($('.hardfacts .hardfact').eq(1).text().replace(',', '.'));
-    apartment.rooms = parseInt($('.hardfacts .hardfact').eq(2).text(), 10);
-    apartment.availableFrom = null;
-    apartment.images = parseImages($);
+    house.id = $('#OnlineId').val();
+    house.rentBase = parsePrice($('.hardfacts .hardfact').eq(0).text());
+    house.rentTotal = parseRentTotal($);
+    house.area = parseArea($('.hardfacts .hardfact').eq(1).text().replace(',', '.'));
+    house.rooms = parseInt($('.hardfacts .hardfact').eq(2).text(), 10);
+    house.availableFrom = null;
+    house.images = parseImages($);
 
     const addressInfo = parseAddress($('.location span').text());
-    apartment = Object.assign(apartment, addressInfo);
+    house = Object.assign(house, addressInfo);
 
-    return apartment;
+    return house;
 };
