@@ -49,7 +49,7 @@ const scrapeState = (state, page = 1) => new Promise((resolve, reject) => {
             return;
         }
         const houses = listScraper.scrape(body);
-        const housePromises = houses.items.map(apt => scrapHouse(host + apt.url));
+        const housePromises = houses.items.map(apt => scrapeHouse(host + apt.url));
 
         resolve(Promise.all(housePromises).then(items => ({
             items,
