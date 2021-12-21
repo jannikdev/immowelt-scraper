@@ -48,7 +48,7 @@ const scrapeState = (state, page = 1) => new Promise((resolve, reject) => {
             reject(`Invalid response: ${response.statusCode}`);
             return;
         }
-        const houses = listScraper.scrap(body);
+        const houses = listScraper.scrape(body);
         const housePromises = houses.items.map(apt => scrapHouse(host + apt.url));
 
         resolve(Promise.all(housePromises).then(items => ({
