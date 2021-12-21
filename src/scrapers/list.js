@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const scrapeHouse = ($houseNode) => {
     const house = {};
 
-    house.url = $houseNode.find('.js-listitem > a').attr('href');
+    house.url = $houseNode.find('.EstateItem-1c115 > a').attr('href');
 
     return house;
 };
