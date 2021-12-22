@@ -27,9 +27,51 @@ const parseAddress = (text) => {
 
 const parseDescription = (appstate) => {
     let decodedText = htmlEntities.decode(appstate);
-    const regex = /(?<=Title&q;:&q;Objekt)(.*?)(?=&q;,&q;Position&q;)/.exec(decodedText)
+    const regex = /(?<=Title&q;:&q;Objekt)(.*?)(?=&q;,&q;Position&q;)/.exec(decodedText);
     return regex ? regex[1].substr(regex[1].lastIndexOf('&q;')+3) : ''
-}
+};
+
+const parseZipcode = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=ZipCode&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseCity = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=City&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseDistrict = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=City&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseStreet = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=street&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parsePrimaryEnergySource = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=PrimaryEnergySource&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseYearOfLastModernization = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=YearOfLastModernization&q;:)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseEstateCategory = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=EstateCategory&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
 
 const parseRentTotal = ($) => {
     const price = null;
@@ -62,13 +104,19 @@ exports.scrape = (page, url) => {
     house.houseArea = parseArea($('.hardfacts .hardfact').eq(1).text().replace(',', '.'));
     house.landArea = parseArea($('.hardfacts .hardfact').eq(3).text().replace(',', '.'));
     house.rooms = parseInt($('.hardfacts .hardfact').eq(2).text(), 10);
+    house.images = parseImages($);
     let appstate = $('#serverApp-state').text();
     house.description = parseDescription(appstate);
-    house.availableFrom = null;
-    house.images = parseImages($);
+    house.zipcode = parseZipcode(appstate);
+    house.city = parseCity(appstate);
+    house.district = parseDistrict(appstate);
+    house.street = parseStreet(appstate);
+    house.primaryEnergySource = parsePrimaryEnergySource(appstate);
+    house.yearOfLastModernization = parseYearOfLastModernization(appstate);
+    house.estateCategory = parseEstateCategory(appstate);
 
-    const addressInfo = parseAddress($('.location span').text());
-    house = Object.assign(house, addressInfo);
+    // const addressInfo = parseAddress($('.location span').text());
+    // house = Object.assign(house, addressInfo);
 
     return house;
 };
