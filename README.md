@@ -1,5 +1,5 @@
 # immowelt-scraper
-Web scrapper for the [Immowelt apartment listing](https://www.immowelt.de/suche/wohnungen/mieten).
+Web scraper for the [Immowelt apartment listing](https://www.immowelt.de/suche/wohnungen/mieten).
 
 Forked from [Federico Bertolini's](https://github.com/fedebertolini) [immowelt-scraper](https://github.com/fedebertolini/immowelt-scraper).
 
