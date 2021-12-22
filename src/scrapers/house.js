@@ -51,7 +51,7 @@ exports.scrape = (page, url) => {
 
     let house = {};
 
-    house.id = url.substr(url.indexOf('/expose/'+2));
+    house.id = url.substr(url.indexOf('expose/'+'expose/'.length));
     house.rentBase = parsePrice($('.hardfacts .hardfact').eq(0).text());
     house.rentTotal = parseRentTotal($);
     house.area = parseArea($('.hardfacts .hardfact').eq(1).text().replace(',', '.'));
