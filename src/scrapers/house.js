@@ -56,6 +56,7 @@ exports.scrape = (page, url) => {
     house.houseArea = parseArea($('.hardfacts .hardfact').eq(1).text().replace(',', '.'));
     house.landArea = parseArea($('.hardfacts .hardfact').eq(3).text().replace(',', '.'));
     house.rooms = parseInt($('.hardfacts .hardfact').eq(2).text(), 10);
+    house.description = $('app-texts').text();
     house.availableFrom = null;
     house.images = parseImages($);
 
