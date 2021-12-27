@@ -79,6 +79,12 @@ const parsePrice = (appstate) => {
     return regex ? regex[1] : ''
 };
 
+const parseFederalStateId = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=FederalStateId&q;:)(.*?)(?=,&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
 const parseRentTotal = ($) => {
     const price = null;
     const priceRows = $('#divPreise .datatable .datarow');
@@ -111,8 +117,9 @@ exports.scrape = (page, url) => {
     house.rooms = parseInt($('.hardfacts .hardfact').eq(2).text(), 10);
     house.images = parseImages($);
     let appstate = $('#serverApp-state').text();
-    house.price = parsePrice(appstate);
     house.description = parseDescription(appstate);
+    house.price = parsePrice(appstate);
+    house.federalStateId = parseFederalStateId(appstate);
     house.zipcode = parseZipcode(appstate);
     house.city = parseCity(appstate);
     house.district = parseDistrict(appstate);
