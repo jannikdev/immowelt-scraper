@@ -75,7 +75,7 @@ const parseEstateCategory = (appstate) => {
 
 const parsePrice = (appstate) => {
     let decodedText = htmlEntities.decode(appstate);
-    const regex = /(?<=price=)(.*?)(?= )/.exec(decodedText);
+    const regex = /(?<=object_price&q;:)(.*?)(?=,&q;)/.exec(decodedText);
     return regex ? regex[1] : ''
 };
 
