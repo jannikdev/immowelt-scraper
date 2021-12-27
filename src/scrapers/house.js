@@ -8,12 +8,12 @@ const parseArea = (text) => {
     return areaRegex ? parseFloat(areaRegex[1].replace(',', '.')) : null;
 };
 
-const parsePrice = (text) => {
-    const decodedText = htmlEntities.decode(text);
-    const sanitizedText = decodedText.replace('.', '').replace(',', '.');
-    const priceRegex = /(\d+\D?\d*)\s*€/.exec(sanitizedText);
-    return priceRegex ? parseFloat(priceRegex[1]) : null;
-};
+// const parsePrice = (text) => {
+//     const decodedText = htmlEntities.decode(text);
+//     const sanitizedText = decodedText.replace('.', '').replace(',', '.');
+//     const priceRegex = /(\d+\D?\d*)\s*€/.exec(sanitizedText);
+//     return priceRegex ? parseFloat(priceRegex[1]) : null;
+// };
 
 const parseAddress = (text) => {
     const result = {};
@@ -73,6 +73,12 @@ const parseEstateCategory = (appstate) => {
     return regex ? regex[1] : ''
 };
 
+const parsePrice = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=price=)(.*?)(?= )/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
 const parseRentTotal = ($) => {
     const price = null;
     const priceRows = $('#divPreise .datatable .datarow');
@@ -100,12 +106,12 @@ exports.scrape = (page, url) => {
     let house = {};
 
     house.id = url.substr(url.indexOf('/expose/')+8);
-    house.price = parsePrice($('.hardfacts .hardfact').eq(0).text());
     house.houseArea = parseArea($('.hardfacts .hardfact').eq(1).text().replace(',', '.'));
     house.landArea = parseArea($('.hardfacts .hardfact').eq(3).text().replace(',', '.'));
     house.rooms = parseInt($('.hardfacts .hardfact').eq(2).text(), 10);
     house.images = parseImages($);
     let appstate = $('#serverApp-state').text();
+    house.price = parsePrice(appstate);
     house.description = parseDescription(appstate);
     house.zipcode = parseZipcode(appstate);
     house.city = parseCity(appstate);
