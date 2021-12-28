@@ -4,7 +4,6 @@ const scrapeHouse = ($houseNode) => {
     const house = {};
 
     house.url = $houseNode.find('.EstateItem-1c115 > a').attr('href');
-    console.log(house.url)
     return house;
 };
 
