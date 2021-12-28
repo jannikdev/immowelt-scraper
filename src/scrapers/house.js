@@ -85,6 +85,84 @@ const parseFederalStateId = (appstate) => {
     return regex ? regex[1] : ''
 };
 
+const parseConstructionYear = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=ConstructionYear&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseUsage = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=USAGE&q;,&q;Value&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseKeywords = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=Stichworte&q;,&q;Content&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseEfficiencyClass = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=Class&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseFloors = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=FLOOR&q;,&q;Value&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseEnergyUsage = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=EnergyType&q;:&q;UNDEFINED&q;,&q;Value&q;:)(.*?)(?=,&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseHotWaterIncluded = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=HotWaterIncluded&q;:)(.*?)(?=})/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseHeating = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=HEATING&q;,&q;Value&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parsePricingInformation = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=Preisinformation&q;,&q;Content&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseFurnishing = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=Ausstattung&q;,&q;Content&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseOther = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=Sonstiges&q;,&q;Content&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseSeparation = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=Raumaufteilung&q;,&q;Content&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseLocationDescription = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=Lagebeschreibung&q;,&q;Content&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
 const parseRentTotal = ($) => {
     const price = null;
     const priceRows = $('#divPreise .datatable .datarow');
@@ -115,7 +193,7 @@ exports.scrape = (page, url) => {
     house.houseArea = parseArea($('.hardfacts .hardfact').eq(1).text().replace(',', '.'));
     house.landArea = parseArea($('.hardfacts .hardfact').eq(3).text().replace(',', '.'));
     house.rooms = parseInt($('.hardfacts .hardfact').eq(2).text(), 10);
-    house.images = parseImages($);
+    // house.images = parseImages($);
     let appstate = $('#serverApp-state').text();
     house.description = parseDescription(appstate);
     house.price = parsePrice(appstate);
@@ -127,6 +205,19 @@ exports.scrape = (page, url) => {
     house.primaryEnergySource = parsePrimaryEnergySource(appstate);
     house.yearOfLastModernization = parseYearOfLastModernization(appstate);
     house.estateCategory = parseEstateCategory(appstate);
+    house.constructionYear = parseConstructionYear(appstate);
+    house.usage = parseUsage(appstate);
+    house.keywords = parseKeywords(appstate);
+    house.efficiencyClass = parseEfficiencyClass(appstate);
+    house.floors = parseFloors(appstate);
+    house.energyUsage = parseEnergyUsage(appstate);
+    house.hotWaterIncluded = parseHotWaterIncluded(appstate);
+    house.heating = parseHeating(appstate);
+    house.pricingInformation = parsePricingInformation(appstate);
+    house.furnishing = parseFurnishing(appstate);
+    house.other = parseOther(appstate);
+    house.separation = parseSeparation(appstate);
+    house.locationDescription = parseLocationDescription(appstate);
 
     // const addressInfo = parseAddress($('.location span').text());
     // house = Object.assign(house, addressInfo);
