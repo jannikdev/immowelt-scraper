@@ -118,7 +118,7 @@ const parseFloors = (appstate) => {
 const parseEnergyUsage = (appstate) => {
     let decodedText = htmlEntities.decode(appstate);
     const regex = /(?<=EnergyType&q;:&q;UNDEFINED&q;,&q;Value&q;:)(.*?)(?=,&q;)/.exec(decodedText);
-    return regex ? regex[1] : ''
+    return regex ? regex[1].replace(/\D/g,'') : ''
 };
 
 const parseHotWaterIncluded = (appstate) => {
