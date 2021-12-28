@@ -111,7 +111,7 @@ const parseEfficiencyClass = (appstate) => {
 
 const parseFloors = (appstate) => {
     let decodedText = htmlEntities.decode(appstate);
-    const regex = /(?<=FLOOR&q;,&q;Value&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    const regex = /(?<=FLOOR&q;,&q;Value&q;:&q;)(.*?)(?= )/.exec(decodedText);
     return regex ? regex[1] : ''
 };
 
