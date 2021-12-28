@@ -45,7 +45,7 @@ const parseCity = (appstate) => {
 
 const parseDistrict = (appstate) => {
     let decodedText = htmlEntities.decode(appstate);
-    const regex = /(?<=City&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    const regex = /(?<=District&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
     return regex ? regex[1] : ''
 };
 
