@@ -69,8 +69,8 @@ const parsePrimaryEnergySource = (appstate) => {
 
 const parseYearOfLastModernization = (appstate) => {
     let decodedText = htmlEntities.decode(appstate);
-    const regex = /(?<=YearOfLastModernization&q;:)(.*?)(?=&q;)/.exec(decodedText);
-    return regex ? regex[1] : ''
+    const regex = /(?<=YearOfLastModernization&q;:)(.*?)(?=,&q;)/.exec(decodedText);
+    return regex ? regex[1].replace(/[^\d-]/g, '') : ''
 };
 
 const parseEstateCategory = (appstate) => {
