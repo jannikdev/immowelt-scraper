@@ -5,7 +5,7 @@ const htmlEntities = new HtmlEntities();
 const parseArea = (text) => {
     const decodedText = htmlEntities.decode(text);
     const areaRegex = /(\d*.\d*) m²/.exec(text);
-    return areaRegex ? parseFloat(areaRegex[1].replace(',', '.')) : null;
+    return areaRegex ? parseFloat(areaRegex[1].replace('.','').replace(',', '.')) : null;
 };
 
 // const parsePrice = (text) => {
