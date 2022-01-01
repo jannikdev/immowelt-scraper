@@ -159,9 +159,10 @@ const parseSeparation = (appstate) => {
 
 const parseLocationDescription = (appstate) => {
     let decodedText = htmlEntities.decode(appstate);
-    const regex = /(?<=Lagebeschreibung&q;,&q;Content&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
-    return regex ? regex[1] : ''
+    const regex = /(?<=Title&q;:&q;Lage)(.*?)(?=&q;,&q;Position&q;)/.exec(decodedText);
+    return regex ? regex[1].substr(regex[1].lastIndexOf('&q;')+3) : ''
 };
+
 
 const parseRentTotal = ($) => {
     const price = null;
