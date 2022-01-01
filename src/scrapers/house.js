@@ -87,7 +87,7 @@ const parseFederalStateId = (appstate) => {
 
 const parseFederalState = (appstate) => {
     let decodedText = htmlEntities.decode(appstate);
-    const regex = /(?<=FederalState&q;:&q;)(.*?)(?=,&q;)/.exec(decodedText);
+    const regex = /(?<=FederalState&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
     return regex ? regex[1] : ''
 };
 
