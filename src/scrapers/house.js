@@ -85,6 +85,12 @@ const parseFederalStateId = (appstate) => {
     return regex ? regex[1] : ''
 };
 
+const parseFederalState = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=FederalState&q;:&q;)(.*?)(?=,&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
 const parseConstructionYear = (appstate) => {
     let decodedText = htmlEntities.decode(appstate);
     const regex = /(?<=ConstructionYear&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
@@ -199,6 +205,7 @@ exports.scrape = (page, url) => {
     house.description = parseDescription(appstate);
     house.price = parsePrice(appstate);
     house.federalStateId = parseFederalStateId(appstate);
+    house.federalState = parseFederalState(appstate);
     house.zipcode = parseZipcode(appstate);
     house.city = parseCity(appstate);
     house.district = parseDistrict(appstate);
