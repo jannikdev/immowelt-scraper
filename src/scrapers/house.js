@@ -4,7 +4,7 @@ const htmlEntities = new HtmlEntities();
 
 const parseArea = (text) => {
     const decodedText = htmlEntities.decode(text);
-    const areaRegex = /(\d*.\d*) m²/.exec(text);
+    const areaRegex = /(\d*.\d*) m²/.exec(decodedText);
     return areaRegex ? parseFloat(areaRegex[1].replace('.','').replace(',', '.')) : null;
 };
 
@@ -123,7 +123,7 @@ const parseEfficiencyClass = (appstate) => {
 
 const parseFloors = (appstate) => {
     let decodedText = htmlEntities.decode(appstate);
-    const regex = /(?<=FLOOR&q;,&q;Value&q;:&q;)(.*?)(?= )/.exec(decodedText);
+    const regex = /(?<=FLOOR&q;,&q;Value&q;:&q;)(.*?)(?=[^\d])/.exec(decodedText);
     return regex ? regex[1] : ''
 };
 
