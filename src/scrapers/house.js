@@ -49,9 +49,15 @@ const parseDistrict = (appstate) => {
     return regex ? regex[1] : ''
 };
 
-const parseStreet = (appstate) => {
+const parseStreetName = (appstate) => {
     let decodedText = htmlEntities.decode(appstate);
-    const regex = /(?<=street&q;:&q;)(.*?)(?=&q;)/.exec(decodedText);
+    const regex = /(?<=streetName:")(.*?)(?=")/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseHouseNumber = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=houseNumber:")(.*?)(?=")/.exec(decodedText);
     return regex ? regex[1] : ''
 };
 
@@ -209,7 +215,8 @@ exports.scrape = (page, url) => {
     house.zipcode = parseZipcode(appstate);
     house.city = parseCity(appstate);
     house.district = parseDistrict(appstate);
-    house.street = parseStreet(appstate);
+    house.streetName = parseStreetName(appstate);
+    house.houseNumber = parseHouseNumber(appstate);
     house.primaryEnergySource = parsePrimaryEnergySource(appstate);
     house.yearOfLastModernization = parseYearOfLastModernization(appstate);
     house.estateCategory = parseEstateCategory(appstate);
