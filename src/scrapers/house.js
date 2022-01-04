@@ -177,7 +177,7 @@ const parseLocationDescription = (appstate) => {
 
 const parseHouseArea = (appstate) => {
     let decodedText = htmlEntities.decode(appstate);
-    const regex = /(?<=LivingSpace&q;:)(.*?)(?=,&q;)/.exec(decodedText);
+    const regex = /(?<=LivingSpace&q;:)(.*?)(?=[^\d.])/.exec(decodedText);
     return regex ? regex[1] : ''
 };
 
