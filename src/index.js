@@ -52,9 +52,8 @@ const scrapeState = (state, page = 1) => new Promise((resolve, reject) => {
             return;
         }
         const houses = listScraper.scrape(body);
-        const housePromises = houses.items.map(apt => scrapeHouse(apt.url));
 
-        resolve(Promise.all(housePromises.catch(e => e)).then(items => ({
+        resolve(Promise.all(houses.items.map(apt => scrapeHouse(apt.url).catch(e => e))).then(items => ({
             items,
             pagination: houses.pagination,
         })).catch(e => console.log(e)));
