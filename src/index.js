@@ -23,7 +23,7 @@ const scrapeHouse = url => new Promise((resolve, reject) => {
             return;
         }
         if (response.statusCode !== 200) {
-            reject(`Invalid response: ${response.statusCode}`);
+            reject(`Invalid response for ${url}: ${response.statusCode}`);
             return;
         }
         const house = houseScraper.scrape(body, url);
