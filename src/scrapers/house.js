@@ -175,6 +175,18 @@ const parseLocationDescription = (appstate) => {
     return regex ? regex[1].substr(regex[1].lastIndexOf('&q;')+3) : ''
 };
 
+const parseHouseArea = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=LivingSpace&q;:)(.*?)(?=,&q;)/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
+const parseLandArea = (appstate) => {
+    let decodedText = htmlEntities.decode(appstate);
+    const regex = /(?<=LandArea&q;:)(.*?)(?=[^\d.])/.exec(decodedText);
+    return regex ? regex[1] : ''
+};
+
 
 const parseRentTotal = ($) => {
     const price = null;
@@ -203,11 +215,13 @@ exports.scrape = (page, url) => {
     let house = {};
 
     house.id = url.substr(url.indexOf('/expose/')+8);
-    house.houseArea = parseArea($('.hardfacts .hardfact').eq(1).text().replace(',', '.'));
-    house.landArea = parseArea($('.hardfacts .hardfact').eq(3).text().replace(',', '.'));
-    house.rooms = parseInt($('.hardfacts .hardfact').eq(2).text(), 10);
+    // house.houseArea = parseArea($('.hardfacts .hardfact').eq(1).text().replace(',', '.'));
+    // house.landArea = parseArea($('.hardfacts .hardfact').eq(3).text().replace(',', '.'));
     // house.images = parseImages($);
     let appstate = $('#serverApp-state').text();
+    house.houseArea = parseHouseArea(appstate);
+    house.landArea = parseLandArea(appstate);
+    house.rooms = parseInt($('.hardfacts .hardfact').eq(2).text(), 10);
     house.description = parseDescription(appstate);
     house.price = parsePrice(appstate);
     house.federalStateId = parseFederalStateId(appstate);
