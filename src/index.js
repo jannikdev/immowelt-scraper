@@ -48,7 +48,7 @@ const scrapeState = (state, page = 1) => new Promise((resolve, reject) => {
             return;
         }
         if (response.statusCode !== 200) {
-            reject(`Invalid response: ${response.statusCode}`);
+            reject(`Invalid response for ${url}: ${response.statusCode}`);
             return;
         }
         const houses = listScraper.scrape(body);
