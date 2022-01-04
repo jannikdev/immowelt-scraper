@@ -57,7 +57,7 @@ const scrapeState = (state, page = 1) => new Promise((resolve, reject) => {
         resolve(Promise.all(housePromises).then(items => ({
             items,
             pagination: houses.pagination,
-        })));
+        })).catch(err => console.log(err)));
     });
 });
 
