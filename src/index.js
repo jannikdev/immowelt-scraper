@@ -54,10 +54,10 @@ const scrapeState = (state, page = 1) => new Promise((resolve, reject) => {
         const houses = listScraper.scrape(body);
         const housePromises = houses.items.map(apt => scrapeHouse(apt.url));
 
-        resolve(Promise.all(housePromises).then(items => ({
+        resolve(Promise.all(housePromises.catch(e => e)).then(items => ({
             items,
             pagination: houses.pagination,
-        })).catch(err => console.log(err)));
+        })).catch(e => console.log(e)));
     });
 });
 
