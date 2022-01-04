@@ -10,7 +10,10 @@ const getListUrl = (state, page) => {
     if (!statePath) {
         throw new Error(`Invalid state: ${state}`);
     }
-    return `${host}/liste/${statePath}/haeuser/kaufen?=&sp=${page}`;
+    let url = `${host}/liste/${statePath}/haeuser/kaufen?sp=${page}`;
+    console.log(`retrieving list from ${url}`);
+
+    return url;
 };
 
 const scrapeHouse = url => new Promise((resolve, reject) => {
